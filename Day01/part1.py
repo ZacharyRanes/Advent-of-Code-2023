@@ -10,11 +10,13 @@ for line in input_array:
     for c in line:
         if c.isdigit():
             d1 = c
+            break
 
     for c in reversed(line):
         if c.isdigit():
             d2 = c
+            break
 
-    total += int(d2 + d1)
+    total += int(d1 + d2)
 
 print(total)
