@@ -1,6 +1,6 @@
 input_array = []
 
-with open('input1', 'r', encoding="UTF-8") as file_name:
+with open('input', 'r', encoding="UTF-8") as file_name:
     input_array = file_name.readlines()
 
 total = 0
