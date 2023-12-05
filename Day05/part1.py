@@ -3,8 +3,6 @@ input_array = []
 with open('input', 'r', encoding="UTF-8") as file_name:
     input_array = file_name.readlines()
 
-total = 0
-
 seeds = list(map(int, input_array[0].split()[1:]))
 
 index = 3
@@ -25,14 +23,11 @@ while True:
 
     levels.append(mapped)
 
-    # print(mapped)
-
     index += 2
 
     if index >= len(input_array):
         break
 
-# print(levels)
 
 for level in levels:
     path = []
@@ -46,7 +41,6 @@ for level in levels:
                 break
         if not found:
             path.append(s)
-    # print(path)
 
     seeds = path
 
