@@ -28,9 +28,10 @@ def main():
 
     total = 0
     for i, n in enumerate(data):
-        total = total + ((i+1) * n[1])
+        bet = n[1]
+        rank = int(i + 1)
+        total += bet * rank
     print(total)
-    # 250699243 too low
 
 
 def compare_hands(h1:tuple, h2:tuple) -> bool:
@@ -61,49 +62,48 @@ def hand_level(h:str) -> int:
         return 6
     # Full house / Three of a kind
     if h.count(h[0]) == 3:
-        sh = h.strip(h[0])
+        sh = h.replace(h[0], "")
         if sh[0] == sh[1]:
             return 5
         else:
             return 4
     if h.count(h[1]) == 3:
-        sh = h.strip(h[1])
+        sh = h.replace(h[1], "")
         if sh[0] == sh[1]:
             return 5
         else:
             return 4
     if h.count(h[2]) == 3:
-        sh = h.strip(h[1])
+        sh = h.replace(h[2], "")
         if sh[0] == sh[1]:
             return 5
         else:
             return 4
     # Two pair / Onw pair
     if h.count(h[0]) == 2:
-        sh = h.strip(h[0])
-        if sh[0] == sh[1] or sh[1] == sh[2]:
+        sh = h.replace(h[0], "")
+        if sh.count(sh[0]) == 2 or sh.count(sh[1]) == 2:
             return 3
         else:
             return 2
     if h.count(h[1]) == 2:
-        sh = h.strip(h[1])
-        if sh[0] == sh[1] or sh[1] == sh[2]:
+        sh = h.replace(h[1], "")
+        if sh.count(sh[0]) == 2 or sh.count(sh[1]) == 2:
             return 3
         else:
             return 2
     if h.count(h[2]) == 2:
-        sh = h.strip(h[2])
-        if sh[0] == sh[1] or sh[1] == sh[2]:
+        sh = h.replace(h[2], "")
+        if sh.count(sh[0]) == 2 or sh.count(sh[1]) == 2:
             return 3
         else:
             return 2
     if h.count(h[3]) == 2:
-        sh = h.strip(h[3])
-        if sh[0] == sh[1] or sh[1] == sh[2]:
+        sh = h.replace(h[3], "")
+        if sh.count(sh[0]) == 2 or sh.count(sh[1]) == 2:
             return 3
         else:
             return 2
-    
     # else High card
     return 1
 
