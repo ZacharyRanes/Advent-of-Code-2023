@@ -1,26 +1,31 @@
-total = 0
-input_array = []
+def main():
+    total = 0
+    input_array = []
 
-with open('input', 'r', encoding="UTF-8") as file_name:
-    input_array = file_name.readlines()
+    with open('input', 'r', encoding="UTF-8") as file_name:
+        input_array = file_name.readlines()
 
-for line in input_array:
-    line = list(map(int, line.split()))
-    history = []
-    history.append(line)
-    # check if every item in the list is the same
-    while any(x != history[-1][0] for x in history[-1]):
-        # add a new list to history that is the differences of the last list
-        history.append([j-i for i, j in zip(history[-1][:-1], history[-1][1:])])
+    for line in input_array:
+        line = list(map(int, line.split()))
+        line.reverse()  # just reversing the line works the same
+        # print(line)
+        n = next_in_list(line)
+        # print(line)
+        total += n
 
-    # for h in history:
-    #     print(h)
+    print(total)
 
-    history.reverse()
-    dif = 0
-    for h in history:
-        dif = h[0] - dif
-        print(dif, h)
-    total += dif
 
-print(total)
+def next_in_list(the_list: list) -> int:
+
+    if all(x == 0 for x in the_list):
+        return 0
+    else:
+        list_of_dif = [j-i for i, j in zip(the_list[:-1], the_list[1:])]
+        next_element_dif = next_in_list(list_of_dif)
+        the_list.append(the_list[-1]+next_element_dif)
+        return the_list[-1]
+
+
+if __name__ == "__main__":
+    main()
