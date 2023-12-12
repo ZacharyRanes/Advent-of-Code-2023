@@ -1,39 +1,47 @@
-class Pipe:
-    top_open = False
-    left_open = False
-    right_open = False
-    bottom_open = False
-
-    def __init__(self, top_open, left_open, right_open, bottom_open):
-        self.top_open = top_open
-        self.left_open = left_open
-        self.right_open = right_open
-        self.bottom_open = bottom_open
-
-
 def main():
     total = 0
     input_array = []
 
-    with open('input_test', 'r', encoding="UTF-8") as file_name:
+    with open('input', 'r', encoding="UTF-8") as file_name:
         input_array = file_name.readlines()
 
-    sketch = []
-    start = ()
+    position = ()
 
     for i, line in enumerate(input_array):
         for j, c in enumerate(line):
             if c == "S":
-                start = (i, j)
-                sketch.append(Pipe(True, True, True, True))
-            if c == ".":
-                sketch.append(None)
+                position = (i, j)
+    last = 0
 
-    print(start)
-    print(sketch)
+    while True:
+        total += 1
+
+        if (position[0]-1) >= 0 and (input_array[position[0]-1][position[1]] in ["|", "7", "F", "S"]) and last != 1:
+            position = (position[0]-1, position[1])
+            last = 2
+
+        elif (position[0]+1) < len(input_array) and (input_array[position[0]+1][position[1]] in ["|", "J", "L", "S"]) and last != 2:
+            position = (position[0]+1, position[1])
+            last = 1
+
+        elif (position[1]-1) >= 0 and (input_array[position[0]][position[1]-1] in ["-", "L", "F", "S"]) and last != 3:
+            position = (position[0], position[1]-1)
+            last = 4
+
+        elif (position[1]+1) < len(input_array[0]) and (input_array[position[0]][position[1]+1] in ["-", "7", "J", "S"]) and last != 4:
+            position = (position[0], position[1]+1)
+            last = 3
+
+        if input_array[position[0]][position[1]] == "S":
+            break
+
+        print(position)
+        
+        if total > 1000:
+            break
 
     return total
 
 
 if __name__ == "__main__":
-    print(main())
+    print(main()/2)
