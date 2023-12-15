@@ -7,18 +7,18 @@ def main():
     puzzles = input_data.strip().split(",")
 
     for p in puzzles:
-        current_value = 0
-        for c in p:
-            print
-            current_value += ord(c)
-            # print(current_value)
-            current_value *= 17
-            # print(current_value)
-            current_value %= 256
-            # print(current_value)
-        total += current_value
+        total += my_hash(p)
 
     return total
+
+
+def my_hash(p: str) -> int:
+    current_value = 0
+    for c in p:
+        current_value += ord(c)
+        current_value *= 17
+        current_value %= 256
+    return current_value
 
 
 if __name__ == "__main__":
